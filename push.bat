@@ -6,4 +6,4 @@ chcp 65001
 ::
 git add .
 git commit -m "Обновил файлы через BGP 1.0"
-::git push
+git push
