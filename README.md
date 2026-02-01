@@ -1,6 +1,11 @@
 # 🎮 BarsikVoxel — Игра на Python
 BarsikVoxel - это игра Барсика на Python в стиле Minecraft Alpha.
 
+# Полезные файлы
+[CHANGELOG.md](https://github.com/barsik0396/BarsikVoxel/blob/main/CHANGELOG.md) - Список изменений
+
+[BarsikVoxel.py](https://github.com/barsik0396/BarsikVoxel/blob/main/BarsikVoxel.py) - исходный код
+
 # 🚀 Установка и запуск
 ### ⏬ Установка
 Установка - очень простая. ✅
