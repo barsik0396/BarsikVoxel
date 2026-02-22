@@ -451,7 +451,47 @@
 
   .footer-links a:hover { color: var(--accent); }
 
+  /* ── LIGHTBOX ── */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+    backdrop-filter: blur(6px);
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img {
+    max-width: 92vw;
+    max-height: 88vh;
+    image-rendering: pixelated;
+    border: 1px solid var(--border);
+    box-shadow: 0 0 80px rgba(74,247,142,0.15);
+    animation: lbIn 0.2s ease;
+  }
+  .lightbox-close {
+    position: absolute;
+    top: 1.5rem; right: 1.5rem;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.6rem;
+    color: var(--muted);
+    cursor: pointer;
+    padding: 0.5rem 0.8rem;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    transition: all 0.2s;
+  }
+  .lightbox-close:hover { color: var(--accent); border-color: var(--accent); }
+  .screenshot-card { cursor: zoom-in; }
+
   /* ── ANIMATIONS ── */
+  @keyframes lbIn {
+    from { opacity: 0; transform: scale(0.93); }
+    to   { opacity: 1; transform: scale(1); }
+  }
   @keyframes fadeDown {
     from { opacity: 0; transform: translateY(-12px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -519,11 +559,11 @@
     <div class="container">
       <div class="section-title">Скриншоты</div>
       <div class="screenshots-grid">
-        <div class="screenshot-card">
+        <div class="screenshot-card" onclick="openLightbox('screens/BarsikVoxel-001-console.png')">
           <img src="screens/BarsikVoxel-001-console.png" alt="Консоль BarsikVoxel">
           <div class="screenshot-label">// Консоль BarsikVoxel</div>
         </div>
-        <div class="screenshot-card">
+        <div class="screenshot-card" onclick="openLightbox('screens/BarsikVoxel-001-window.png')">
           <img src="screens/BarsikVoxel-001-window.png" alt="Окно игры">
           <div class="screenshot-label">// Окно игры</div>
         </div>
@@ -576,10 +616,16 @@
   </div>
 </div>
 
+<!-- ─────────────── LIGHTBOX ─────────────── -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+  <div class="lightbox-close" onclick="closeLightbox()">✕ закрыть</div>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
 <!-- ─────────────── FOOTER ─────────────── -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-brand">BARSIK VOXEL &copy; 2024</div>
+    <div class="footer-brand">BARSIK VOXEL &copy; 2026</div>
     <div class="footer-links">
       <a onclick="showPage('home')">Главная</a>
       <a onclick="showPage('download')">Скачать</a>
@@ -664,6 +710,18 @@ function showPage(name) {
   if (page) page.classList.add('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+// ── Lightbox ──
+function openLightbox(src) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
 // ── Init ──
 renderReleases();
